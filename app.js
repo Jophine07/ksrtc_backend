@@ -65,6 +65,14 @@ app.post("/signIn",(req,res)=>{
     ).catch()
     })
 
+    app.post("/add",(req,res)=>{
+        let input=req.body
+        let ksrtc=ksrtcModel(input)
+        ksrtc.save()
+        console.log(ksrtc)
+        res.json({"status":"success"})
+    })
+
 app.listen(8080,()=>{
     console.log("server booted")
 })
