@@ -5,7 +5,11 @@ const schema= mongoose.Schema(
         "email":String,
         "mobile":String,
         "gender":String,
-        "password":String
+        "password":String,
+        "busName":String,
+        "route":String,
+        "busNo":String,
+        "driver":String
 
 
     }
