@@ -20,15 +20,16 @@ const generateHashPassword =async(password)=>{
 }
 
 
-app.post("/signup",async (req,res)=>{
+    app.post("/signup",async (req,res)=>{
     let input=req.body
     let hashedPassword=await generateHashPassword(input.password)
     console.log(hashedPassword)
     input.password=hashedPassword
     let ksrtc = new ksrtcModel(input)
-    blog.save()
+    ksrtc.save()
     res.json({"status":"success"})
 })
+
 
 app.post("/signIn",(req,res)=>{
     let input=req.body
@@ -66,12 +67,34 @@ app.post("/signIn",(req,res)=>{
     })
 
     app.post("/add",(req,res)=>{
-        let input=req.body
-        let ksrtc=ksrtcModel(input)
+        let input= req.body
+        let ksrtc=new ksrtcModel(input)
         ksrtc.save()
-        console.log(ksrtc)
         res.json({"status":"success"})
     })
+
+    app.post("/Search",(req,res)=>{
+        let input=req.body
+        ksrtcModel.find(input).then(
+            (data)=>{
+                res.json(data)
+            }
+        ).catch(
+            (error)=>{
+                res.json(error)
+            }
+        )
+    })
+
+    app.get("/view",(req,res)=>{
+        ksrtcModel.find().then(
+            (data=>{
+                res.json(data)
+            })
+        )
+        })
+    
+
 
 app.listen(8080,()=>{
     console.log("server booted")
